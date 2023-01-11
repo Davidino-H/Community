@@ -17,7 +17,7 @@
 <body>
 <div class="nk-container">
     <!-- 头部 -->
-    <header class="bg-dark sticky-top">
+    <header class="bg-dark sticky-top" th:fragment="header">
         <div class="container">
             <!-- 导航 -->
             <nav class="navbar navbar-expand-lg navbar-dark">
@@ -32,7 +32,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="index.html" th:href="@{/}">首页</a>
+                            <a class="nav-link" href="index.html" th:href="@{/index}">Home page</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">
                             <a class="nav-link position-relative" href="site/letter.html"
@@ -43,7 +43,7 @@
                             </a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
-                            <a class="nav-link" href="site/register.html" th:href="@{/register}">注册</a>
+                            <a class="nav-link" href="site/register.html" th:href="@{/register}">Sign up</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
                             <a class="nav-link" href="site/login.html" th:href="@{/login}">登录</a>
@@ -51,7 +51,7 @@
                         <li class="nav-item ml-3 btn-group-vertical dropdown" th:if="${loginUser!=null}">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="http://images.nowcoder.com/head/1t.png" th:src="${loginUser.headerUrl}"
+                                <img src="http://images.nowcoder.com/head/1t.png"
                                      class="rounded-circle" style="width:30px;"/>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
