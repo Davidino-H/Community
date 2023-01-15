@@ -13,4 +13,12 @@ public interface CommunityConstant {
      * Activate failed
      */
     int ACTIVATION_FAILURE = 2;
+    /**
+     * default login ticket expired time
+     */
+    int DEFAULT_EXPIRED_SECODES = 3600 * 12;
+    /**
+     * Remember status login ticket expired time
+     */
+    int REMEMBER_EXPIRED_SECODES = 3600 * 24 * 100;
 }

@@ -72,7 +72,7 @@
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label text-right">Account:</label>
                     <div class="col-sm-10">
-                        <input type="text" th:class="|form-control is-invalid ${usernameMsg}!=null ?'is-valid':''|"
+                        <input type="text" th:class="|form-control ${usernameMsg!=null ?'is-invalid':''}|"
                                th:value="${param.username}"
                                id="username" name="username" placeholder="Please enter your account!" required>
                         <div class="invalid-feedback" th:text="${usernameMsg}">
@@ -84,7 +84,7 @@
                     <label for="password" class="col-sm-2 col-form-label text-right">Password:</label>
                     <div class="col-sm-10">
                         <input type="password"
-                               th:class="|form-control is-invalid ${passwordMsg}!=null ?'is-valid':''|"
+                               th:class="|form-control ${passwordMsg!=null ?'is-invalid':''}|"
                                th:value="${param.password}"
                                id="password" name="password" placeholder="Please enter your password!" required>
                         <div class="invalid-feedback" th:text="${passwordMsg}">
@@ -95,10 +95,10 @@
                 <div class="form-group row mt-4">
                     <label for="verifycode" class="col-sm-2 col-form-label text-right">Code:</label>
                     <div class="col-sm-6">
-                        <input type="text" th:class="|form-control is-invalid ${codeMsg}!=null ?'is-valid':''|"
+                        <input type="text" th:class="|form-control ${codeMsg!=null ?'is-invalid':''}|"
                                id="verifycode" name="code" placeholder="Please enter the code!">
                         <div class="invalid-feedback" th:text="${codeMsg}">
-                            Entered code is not correct!
+                            Entered verification code is not correct!
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -110,8 +110,8 @@
                 <div class="form-group row mt-4">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10">
-                        <input type="checkbox" id="remember-me" name="rememberme" checked="checked"
-                               th:checked="rememberme">
+                        <input type="checkbox" id="remember-me" name="rememberMe" checked="checked"
+                               th:checked="${param.rememberMe}">
                         <label class="form-check-label" for="remember-me">Remember me</label>
                         <a href="forget.html" class="text-danger float-right">Forget password?</a>
                     </div>
