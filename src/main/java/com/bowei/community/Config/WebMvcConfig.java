@@ -1,6 +1,7 @@
 package com.bowei.community.Config;
 
 import com.bowei.community.controller.interceptor.AlphaInterceptor;
+import com.bowei.community.controller.interceptor.LoginRequiredInterceptor;
 import com.bowei.community.controller.interceptor.LoginTicketInterceptor;
 import com.bowei.community.entity.LoginTicket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     private AlphaInterceptor alphaInterceptor;
     @Autowired
     private LoginTicketInterceptor loginTicketInterceptor;
+    @Autowired
+    private LoginRequiredInterceptor loginRequiredInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -22,6 +25,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/register", "/login");
 
         registry.addInterceptor(loginTicketInterceptor)
+                .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
+
+        registry.addInterceptor(loginRequiredInterceptor)
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
     }
 }
