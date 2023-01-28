@@ -21,4 +21,14 @@ public interface CommunityConstant {
      * Remember status login ticket expired time
      */
     int REMEMBER_EXPIRED_SECODES = 3600 * 24 * 100;
+
+    /**
+     * Entity type: Posts
+     */
+    int ENTITY_TYPE_POST = 1;
+
+    /**
+     * Entity type: Comments
+     */
+    int ENTITY_TYPE_COMMENT = 2;
 }
