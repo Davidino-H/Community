@@ -151,8 +151,7 @@
                                 th:text="${map.post.createTime}">2019-04-15
                             15:32:18</b>
                             <ul class="d-inline float-right">
-                                <li class="d-inline ml-2">
-                                    Like <i>11</i></li>
+                                <li class="d-inline ml-2">Like <span th:text="${map.likeCount}">11</span></li>
                                 <li class="d-inline ml-2">|</li>
                                 <li class="d-inline ml-2">Replies <span th:text="${map.post.commentCount}">7</span></li>
                             </ul>

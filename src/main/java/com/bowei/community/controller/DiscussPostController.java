@@ -6,6 +6,7 @@ import com.bowei.community.entity.Page;
 import com.bowei.community.entity.User;
 import com.bowei.community.service.CommentService;
 import com.bowei.community.service.DiscussPostService;
+import com.bowei.community.service.LikeService;
 import com.bowei.community.service.UserService;
 import com.bowei.community.util.CommunityConstant;
 import com.bowei.community.util.CommunityUtil;
@@ -32,6 +33,8 @@ public class DiscussPostController implements CommunityConstant {
     private UserService userService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private LikeService likeService;
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addDiscussPost(String title, String content) {
@@ -58,6 +61,12 @@ public class DiscussPostController implements CommunityConstant {
         // Author
         User user = userService.findUserById(post.getUserId());
         model.addAttribute("user", user);
+        //Number of Likes
+        long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, discussPostId);
+        model.addAttribute("likeCount", likeCount);
+        // Like status
+        int likeStatus = hostHolder.getUser() == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_POST, discussPostId);
+        model.addAttribute("likeStatus", likeStatus);
 
         // Comment paging
         page.setLimit(5);
@@ -78,6 +87,11 @@ public class DiscussPostController implements CommunityConstant {
                 commentVo.put("comment", comment);
                 // author
                 commentVo.put("user", userService.findUserById(comment.getUserId()));
+                likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_COMMENT, comment.getId());
+                commentVo.put("likeCount", likeCount);
+                // Like status
+                likeStatus = hostHolder.getUser() == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, comment.getId());
+                commentVo.put("likeStatus", likeStatus);
 
                 // Reply to comment list
                 List<Comment> replyList = commentService.findCommentByEntity(ENTITY_TYPE_COMMENT, comment.getId(), 0, Integer.MAX_VALUE);
@@ -93,6 +107,12 @@ public class DiscussPostController implements CommunityConstant {
                         // Reply to target comment
                         User target = reply.getTargetId() == 0 ? null : userService.findUserById(reply.getTargetId());
                         replyVo.put("target", target);
+
+                        likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_COMMENT, reply.getId());
+                        replyVo.put("likeCount", likeCount);
+                        // Like status
+                        likeStatus = hostHolder.getUser() == null ? 0 : likeService.findEntityLikeStatus(hostHolder.getUser().getId(), ENTITY_TYPE_COMMENT, reply.getId());
+                        replyVo.put("likeStatus", likeStatus);
 
                         replyVoList.add(replyVo);
                     }
