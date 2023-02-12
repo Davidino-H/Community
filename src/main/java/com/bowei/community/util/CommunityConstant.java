@@ -31,4 +31,9 @@ public interface CommunityConstant {
      * Entity type: Comments
      */
     int ENTITY_TYPE_COMMENT = 2;
+
+    /**
+     * Entity type: User
+     */
+    int ENTITY_TYPE_USER = 3;
 }

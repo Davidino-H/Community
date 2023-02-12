@@ -2,7 +2,10 @@ package com.bowei.community.controller;
 
 import com.bowei.community.annotation.LoginRequired;
 import com.bowei.community.entity.User;
+import com.bowei.community.service.FollowService;
+import com.bowei.community.service.LikeService;
 import com.bowei.community.service.UserService;
+import com.bowei.community.util.CommunityConstant;
 import com.bowei.community.util.CommunityUtil;
 import com.bowei.community.util.HostHolder;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,7 +26,7 @@ import java.io.OutputStream;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements CommunityConstant {
     @Value("${community.path.upload}")
     private String uploadPath;
 
@@ -38,6 +41,11 @@ public class UserController {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private LikeService likeService;
+    @Autowired
+    private FollowService followService;
     @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage() {
@@ -98,5 +106,33 @@ public class UserController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    //Personal home page
+    @RequestMapping(path = "/profile/{userId}", method = RequestMethod.GET)
+    public String getProfilePage(@PathVariable("userId") int userId, Model model) {
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new RuntimeException("This user not exists");
+        }
+
+        // User
+        model.addAttribute("user", user);
+        // Number of Likes
+        int likeCount = likeService.findUserLikeCount(userId);
+        model.addAttribute("likeCount", likeCount);
+
+        // Follow number
+        long followeeCount = followService.findFolloweeCount(userId, ENTITY_TYPE_USER);
+        model.addAttribute("followeeCount", followeeCount);
+        // Fans number
+        long followerCount = followService.findFollowerCount(ENTITY_TYPE_USER, userId);
+        model.addAttribute("followerCount", followerCount);
+        // Check if already followed
+        boolean hasFollowed = false;
+        if (hostHolder.getUser() != null) {
+            hasFollowed = followService.hasFollowed(hostHolder.getUser().getId(), ENTITY_TYPE_USER, userId);
+        }
+        model.addAttribute("hasFollowed", hasFollowed);
+        return "/site/profile";
     }
 }
