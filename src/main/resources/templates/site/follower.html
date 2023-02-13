@@ -88,14 +88,14 @@
             <ul class="list-unstyled">
                 <li class="media pb-3 pt-3 mb-3 border-bottom position-relative" th:each="map:${users}">
                     <a href="profile.html" th:href="@{|/user/profile/${map.user.id}|}">
-                        <img src="http://images.nowcoder.com/head/8t.png" th:src="${map.user.headerUrl}"
+                        <img th:src="${map.user.headerUrl}"
                              class="mr-4 rounded-circle user-header" alt="用户头像">
                     </a>
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
                             <span class="text-success" th:utext="${map.user.username}">落基山脉下的闲人</span>
                             <span class="float-right text-muted font-size-12">关注于
-									<i th:text="${#dates.format(map.followTime, 'yyyy-MM-dd HH:mm:ss')}">2019-04-28 14:13:25</i>
+									<i th:text="${#dates.format(map.followTime)}">2019-04-28 14:13:25</i>
 								</span>
                         </h6>
                         <div>
@@ -136,7 +136,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
-<script src="../js/global.js" th:src="@{/js/global.js}"></script>
-<script src="../js/profile.js" th:src="@{/js/profile.js}"></script>
+<script th:src="@{/js/global.js}"></script>
+<script th:src="@{/js/profile.js}"></script>
 </body>
 </html>
