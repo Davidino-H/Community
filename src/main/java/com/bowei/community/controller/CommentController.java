@@ -1,8 +1,13 @@
 package com.bowei.community.controller;
 
+import com.bowei.community.Event.EventProducer;
 import com.bowei.community.annotation.LoginRequired;
 import com.bowei.community.entity.Comment;
+import com.bowei.community.entity.DiscussPost;
+import com.bowei.community.entity.Event;
 import com.bowei.community.service.CommentService;
+import com.bowei.community.service.DiscussPostService;
+import com.bowei.community.util.CommunityConstant;
 import com.bowei.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +20,15 @@ import java.util.Date;
 @Controller
 @RequestMapping("/comment")
 
-public class CommentController {
+public class CommentController implements CommunityConstant {
     @Autowired
     private CommentService commentService;
     @Autowired
     private HostHolder hostHolder;
+    @Autowired
+    private EventProducer eventProducer;
+    @Autowired
+    private DiscussPostService discussPostService;
     @LoginRequired
     @RequestMapping(path = "/add/{discussPostId}", method = RequestMethod.POST)
     public String addComment(@PathVariable("discussPostId") int discussPostId, Comment comment) {
@@ -27,6 +36,22 @@ public class CommentController {
         comment.setStatus(0);
         comment.setCreateTime(new Date());
         commentService.addComment(comment);
+
+        // Trigger a comment event
+        Event event = new Event()
+                .setTopic(TOPIC_COMMENT)
+                .setUserid(hostHolder.getUser().getId())
+                .setEntityType(comment.getEntityType())
+                .setEntityId(comment.getEntityId())
+                .setData("postId", discussPostId);
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            DiscussPost target = discussPostService.findDiscussPostById(comment.getEntityId());
+            event.setEntityUserId(target.getUserId());
+        } else if (comment.getEntityType() == ENTITY_TYPE_COMMENT) {
+            Comment target = commentService.findCommentById(comment.getEntityId());
+            event.setEntityId(target.getUserId());
+        }
+        eventProducer.fireEvent(event);
 
         return "redirect:/discuss/detail/" + discussPostId;
     }

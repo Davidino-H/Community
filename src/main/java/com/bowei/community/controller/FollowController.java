@@ -1,5 +1,7 @@
 package com.bowei.community.controller;
 
+import com.bowei.community.Event.EventProducer;
+import com.bowei.community.entity.Event;
 import com.bowei.community.entity.Page;
 import com.bowei.community.entity.User;
 import com.bowei.community.service.FollowService;
@@ -27,12 +29,23 @@ public class FollowController implements CommunityConstant {
     private HostHolder hostHolder;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventProducer eventProducer;
 
     @RequestMapping(path = "/follow", method = RequestMethod.POST)
     @ResponseBody
     public String follow(int entityType, int entityId) {
         User user = hostHolder.getUser();
         followService.follow(user.getId(), entityType, entityId);
+
+        // Trigger follow event
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserid(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0, "Followed!");
     }
