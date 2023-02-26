@@ -6,8 +6,7 @@ import com.bowei.community.dao.UserMapper;
 import com.bowei.community.entity.DiscussPost;
 import com.bowei.community.entity.User;
 import com.bowei.community.util.CommunityUtil;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Date;
 
 @Service

@@ -15,7 +15,7 @@ public class DiscussPostService {
     @Autowired
     private OffensiveFilter offensiveFilter;
     public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit) {
-        return discussPostMapper.selectDiscussPosts(userId, offset, limit);
+        return discussPostMapper.selectDiscussPosts(userId, offset, limit, 0);
     }
 
     public int findDiscussPostRows(int userId) {

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface DiscussPostMapper {
-    List<DiscussPost> selectDiscussPosts(int userId, int offset, int limit);
+    List<DiscussPost> selectDiscussPosts(int userId, int offset, int limit, int i);
 
     // @Param injection
     // If only has one parameter, when it used in <if>, then you need use @Param
