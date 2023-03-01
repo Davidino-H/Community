@@ -1,12 +1,15 @@
 package com.bowei.community.Event;
 
+
 import com.alibaba.fastjson.JSONObject;
+import com.bowei.community.entity.DiscussPost;
 import com.bowei.community.entity.Event;
 import com.bowei.community.entity.Message;
+import com.bowei.community.service.DiscussPostService;
+import com.bowei.community.service.ElasticSearchService;
 import com.bowei.community.service.MessageService;
 import com.bowei.community.util.CommunityConstant;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -14,12 +17,15 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Component
 public class EventConsumer implements CommunityConstant {
     @Autowired
     private MessageService messageService;
+    @Autowired
+    private DiscussPostService discussPostService;
+    @Autowired
+    private ElasticSearchService elasticSearchService;
 
     @KafkaListener(topics = {TOPIC_COMMENT, TOPIC_LIKE, TOPIC_FOLLOW})
     public void handleCommentMessage(ConsumerRecord record) {
@@ -53,5 +59,35 @@ public class EventConsumer implements CommunityConstant {
 
         message.setContent(JSONObject.toJSONString(content));
         messageService.addMessage(message);
+    }
+    // 消费发帖事件
+    @KafkaListener(topics = {TOPIC_PUBLISH})
+    public void handlePublishMessage(ConsumerRecord record){
+        if (record == null || record.value() == null) {
+            System.out.println("Record is empty!");
+            return;
+        }
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            System.out.println("Event error!");
+            return;
+        }
+        DiscussPost post = discussPostService.findDiscussPostById(event.getEntityId());
+        elasticSearchService.saveDiscussPost(post);
+    }
+
+    // 消费删除事件
+    @KafkaListener(topics = {TOPIC_PUBLISH})
+    public void handleDeleteMessage(ConsumerRecord record){
+        if (record == null || record.value() == null) {
+            System.out.println("Record is empty!");
+            return;
+        }
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            System.out.println("Event error!");
+            return;
+        }
+        elasticSearchService.deleteDiscussPost(event.getEntityId());
     }
 }

@@ -56,4 +56,25 @@ public interface CommunityConstant {
      * System id
      */
     int SYSTEM_USER_ID = 1;
+
+    /**
+     * Publish
+     */
+    String TOPIC_PUBLISH = "publish";
+    /**
+     * Delete posts
+     */
+    String TOPIC_DELETE = "delete";
+    /**
+     * Normal user
+     */
+    String AUTHORITY_USER = "user";
+    /**
+     * Administrator
+     */
+    String AUTHORITY_ADMIN = "admin";
+    /**
+     * Moderator
+     */
+    String AUTHORITY_MODERATOR = "moderator";
 }

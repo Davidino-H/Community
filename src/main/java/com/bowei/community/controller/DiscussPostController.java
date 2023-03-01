@@ -1,9 +1,7 @@
 package com.bowei.community.controller;
 
-import com.bowei.community.entity.Comment;
-import com.bowei.community.entity.DiscussPost;
-import com.bowei.community.entity.Page;
-import com.bowei.community.entity.User;
+import com.bowei.community.Event.EventProducer;
+import com.bowei.community.entity.*;
 import com.bowei.community.service.CommentService;
 import com.bowei.community.service.DiscussPostService;
 import com.bowei.community.service.LikeService;
@@ -35,6 +33,8 @@ public class DiscussPostController implements CommunityConstant {
     private CommentService commentService;
     @Autowired
     private LikeService likeService;
+    @Autowired
+    private EventProducer eventProducer;
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addDiscussPost(String title, String content) {
@@ -48,6 +48,14 @@ public class DiscussPostController implements CommunityConstant {
         post.setContent(content);
         post.setCreateTime(new Date());
         discussPostService.addDiscussPost(post);
+
+        //触发发帖事件
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserid(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(post.getId());
+        eventProducer.fireEvent(event);
 
         // 报错的话，将来统一处理
         return CommunityUtil.getJSONString(0, "Post successfully!");
