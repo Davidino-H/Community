@@ -77,7 +77,7 @@ public class EventConsumer implements CommunityConstant {
     }
 
     // 消费删除事件
-    @KafkaListener(topics = {TOPIC_PUBLISH})
+    @KafkaListener(topics = {TOPIC_DELETE})
     public void handleDeleteMessage(ConsumerRecord record){
         if (record == null || record.value() == null) {
             System.out.println("Record is empty!");
