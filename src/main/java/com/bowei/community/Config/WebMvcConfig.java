@@ -1,6 +1,7 @@
 package com.bowei.community.Config;
 
 import com.bowei.community.controller.interceptor.AlphaInterceptor;
+import com.bowei.community.controller.interceptor.DataInterceptor;
 import com.bowei.community.controller.interceptor.LoginRequiredInterceptor;
 import com.bowei.community.controller.interceptor.LoginTicketInterceptor;
 import com.bowei.community.entity.LoginTicket;
@@ -18,6 +19,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private LoginRequiredInterceptor loginRequiredInterceptor;
 
+    @Autowired
+    private DataInterceptor dataInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(alphaInterceptor)
@@ -28,6 +32,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
 
         registry.addInterceptor(loginRequiredInterceptor)
+                .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
+
+        registry.addInterceptor(dataInterceptor)
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
     }
 }
