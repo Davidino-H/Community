@@ -9,6 +9,7 @@ import com.bowei.community.util.CommunityUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
@@ -114,5 +115,11 @@ public class AlphaService {
                 return "OK";
             }
         });
+    }
+
+    //让该方法在多线程环境下被异步调用
+    @Async
+    public void execute1(){
+        System.out.println("测试 execute 1");
     }
 }

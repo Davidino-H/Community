@@ -24,8 +24,6 @@ public class DataService {
     //  Count the specified ip to Unique Visivor
     public void recordUV(String ip) {
         String redisKey = RedisKeyUtil.getUVKey(df.format(new Date()));
-        System.out.println(1);
-        System.out.println(df);
         redisTemplate.opsForHyperLogLog().add(redisKey, ip);
     }
 
