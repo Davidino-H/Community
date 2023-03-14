@@ -7,7 +7,9 @@ import com.bowei.community.service.LikeService;
 import com.bowei.community.util.CommunityConstant;
 import com.bowei.community.util.CommunityUtil;
 import com.bowei.community.util.HostHolder;
+import com.bowei.community.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +26,8 @@ public class LikeController implements CommunityConstant {
     private HostHolder hostHolder;
     @Autowired
     private EventProducer eventProducer;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @RequestMapping(path = "/like", method = RequestMethod.POST)
     @ResponseBody
@@ -51,6 +55,11 @@ public class LikeController implements CommunityConstant {
                     .setEntityUserId(entityUserId)
                     .setData("postId", postId);
             eventProducer.fireEvent(event);
+        }
+        if (entityType == ENTITY_TYPE_POST) {
+            // Prepare for calculating post score
+            String redisKey = RedisKeyUtil.getPostScoreKey();
+            redisTemplate.opsForSet().add(redisKey, postId);
         }
         return CommunityUtil.getJSONString(0, null, map);
     }
