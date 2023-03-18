@@ -8,7 +8,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="../css/global.css" th:href="@{/css/global.css}"/>
     <link rel="stylesheet" href="../css/login.css" th:href="@{/css/login.css}"/>
-    <title>牛客网-登录</title>
+    <title>community-Login</title>
 </head>
 <body>
 <div class="nk-container">
@@ -28,16 +28,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="../index.html">首页</a>
+                            <a class="nav-link" href="../index.html">Home page</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link position-relative" href="letter.html">消息<span class="badge badge-danger">12</span></a>
+                            <a class="nav-link position-relative" href="letter.html">Message<span class="badge badge-danger">12</span></a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="register.html">注册</a>
+                            <a class="nav-link" href="register.html">Register</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="login.html">登录</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -46,18 +46,18 @@
                                      style="width:30px;"/>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-center" href="profile.html">个人主页</a>
-                                <a class="dropdown-item text-center" href="setting.html">账号设置</a>
-                                <a class="dropdown-item text-center" href="login.html">退出登录</a>
+                                <a class="dropdown-item text-center" href="profile.html">Personal page</a>
+                                <a class="dropdown-item text-center" href="setting.html">Account setting</a>
+                                <a class="dropdown-item text-center" href="login.html">Logout</a>
                                 <div class="dropdown-divider"></div>
-                                <span class="dropdown-item text-center text-secondary">nowcoder</span>
+                                <span class="dropdown-item text-center text-secondary">community</span>
                             </div>
                         </li>
                     </ul>
                     <!-- 搜索 -->
                     <form class="form-inline my-2 my-lg-0" action="search.html">
                         <input class="form-control mr-sm-2" type="search" aria-label="Search"/>
-                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜索</button>
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">search</button>
                     </form>
                 </div>
             </nav>
@@ -67,7 +67,7 @@
     <!-- 内容 -->
     <div class="main">
         <div class="container pl-5 pr-5 pt-3 pb-3 mt-3 mb-3">
-            <h3 class="text-center text-info border-bottom pb-3">Lo&nbsp;&nbsp;gin</h3>
+            <h3 class="text-center text-info border-bottom pb-3">Login</h3>
             <form class="mt-5" method="post" th:action="@{/login}">
                 <div class="form-group row">
                     <label for="username" class="col-sm-2 col-form-label text-right">Account:</label>
@@ -113,7 +113,7 @@
                         <input type="checkbox" id="remember-me" name="rememberMe" checked="checked"
                                th:checked="${param.rememberMe}">
                         <label class="form-check-label" for="remember-me">Remember me</label>
-                        <a href="forget.html" class="text-danger float-right">Forget password?</a>
+                        <a href="forget.html" class="text-danger float-right" th:href="@{/forget}">Forget password?</a>
                     </div>
                 </div>
                 <div class="form-group row mt-4">
