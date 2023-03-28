@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+    <link rel="icon" href="https://i.postimg.cc/MTHS4YT3/image.png"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link rel="stylesheet" href="../css/global.css" th:href="@{/css/global.css}"/>
     <link rel="stylesheet" href="../css/letter.css" th:href="@{/css/letter.css}"/>
-    <title>牛客网-通知</title>
+    <title>Community-Notification</title>
 </head>
 <body>
 <div class="nk-container">
@@ -28,16 +28,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="../index.html">首页</a>
+                            <a class="nav-link" href="../index.html">Home</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link position-relative" href="letter.html">消息<span class="badge badge-danger">12</span></a>
+                            <a class="nav-link position-relative" href="letter.html">Message<span class="badge badge-danger">12</span></a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="register.html">注册</a>
+                            <a class="nav-link" href="register.html">Register</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" href="login.html">登录</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -46,18 +46,18 @@
                                      style="width:30px;"/>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-center" href="profile.html">个人主页</a>
-                                <a class="dropdown-item text-center" href="setting.html">账号设置</a>
-                                <a class="dropdown-item text-center" href="login.html">退出登录</a>
+                                <a class="dropdown-item text-center" href="profile.html">Personal page</a>
+                                <a class="dropdown-item text-center" href="setting.html">Account setting</a>
+                                <a class="dropdown-item text-center" href="login.html">Logout</a>
                                 <div class="dropdown-divider"></div>
-                                <span class="dropdown-item text-center text-secondary">nowcoder</span>
+                                <span class="dropdown-item text-center text-secondary">community</span>
                             </div>
                         </li>
                     </ul>
                     <!-- 搜索 -->
                     <form class="form-inline my-2 my-lg-0" action="search.html">
                         <input class="form-control mr-sm-2" type="search" aria-label="Search"/>
-                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">搜索</button>
+                        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">search</button>
                     </form>
                 </div>
             </nav>
@@ -72,13 +72,13 @@
                 <ul class="nav nav-tabs mb-3">
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="letter.html" th:href="@{/letter/list}">
-                            朋友私信<span class="badge badge-danger" th:text="${letterUnreadCount}"
+                            Friend's letter<span class="badge badge-danger" th:text="${letterUnreadCount}"
                                       th:if="${letterUnreadCount != 0}">3</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link position-relative active" href="notice.html" th:href="@{/notice/list}">
-                            系统通知
+                            System notification
                             <span class="badge badge-danger" th:text="${noticeUnreadCount}"
                                   th:if="${noticeUnreadCount!=0}">
 									27
@@ -98,7 +98,7 @@
                     <img src="http://static.nowcoder.com/images/head/reply.png" class="mr-4 user-header" alt="通知图标">
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
-                            <span>评论</span>
+                            <span>Comments</span>
                             <span class="float-right text-muted font-size-12"
                                   th:text="${#dates.format(commentNotice.message.createTime)}">
 									2019-04-28 14:13:25
@@ -106,15 +106,15 @@
                         </h6>
                         <div>
                             <a href="notice-detail.html" th:href="@{/notice/detail/comment}">
-                                用户
-                                <i th:utext="${commentNotice.user.username}">nowcoder</i>
-                                评论了你的
-                                <b th:text="${commentNotice.entityType==1?'帖子':'回复'}">帖子</b> ...
+
+                                <i th:utext="${commentNotice.user.username}"></i>
+
+                                <b th:text="${commentNotice.entityType==1?'Post':'Reply'}"></b> ...
                             </a>
                             <ul class="d-inline font-size-12 float-right">
                                 <li class="d-inline ml-2">
 										<span class="text-primary">
-										共 <i th:text="${commentNotice.count}">3</i> 条会话
+										Total <i th:text="${commentNotice.count}">3</i> sessions
 										</span>
                                 </li>
                             </ul>
@@ -128,20 +128,20 @@
                     <img src="http://static.nowcoder.com/images/head/like.png" class="mr-4 user-header" alt="通知图标">
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
-                            <span>赞</span>
+                            <span>Like</span>
                             <span class="float-right text-muted font-size-12"
                                   th:text="${#dates.format(likeNotice.message.createTime)}">2019-04-28 14:13:25
 								</span>
                         </h6>
                         <div>
                             <a href="notice-detail.html" th:href="@{/notice/detail/like}">
-                                用户 <i th:utext="${likeNotice.user.username}">nowcoder</i> 点赞了你的
-                                <b th:text="${likeNotice.entityType==1?'帖子':'回复'}">帖子</b> ...
+                                User <i th:utext="${likeNotice.user.username}">nowcoder</i> liked your
+                                <b th:text="${likeNotice.entityType==1?'Post':'Reply'}"></b> ...
                             </a>
                             <ul class="d-inline font-size-12 float-right">
                                 <li class="d-inline ml-2">
-										<span class="text-primary">共
-											<i th:text="${likeNotice.count}">3</i> 条会话
+										<span class="text-primary">Total
+											<i th:text="${likeNotice.count}">3</i> session
 										</span>
                                 </li>
                             </ul>
@@ -156,18 +156,18 @@
                     <img src="http://static.nowcoder.com/images/head/follow.png" class="mr-4 user-header" alt="通知图标">
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
-                            <span>关注</span>
+                            <span>Follow</span>
                             <span class="float-right text-muted font-size-12"
                                   th:text="${#dates.format(followNotice.message.createTime)}">2019-04-28 14:13:25
 								</span>
                         </h6>
                         <div>
-                            <a href="notice-detail.html" th:href="@{/notice/detail/follow}">用户
-                                <i th:utext="${followNotice.user.username}">nowcoder</i> 关注了你 ...
+                            <a href="notice-detail.html" th:href="@{/notice/detail/follow}">User
+                                <i th:utext="${followNotice.user.username}">nowcoder</i> Followed your ...
                             </a>
                             <ul class="d-inline font-size-12 float-right">
-                                <li class="d-inline ml-2"><span class="text-primary">共
-										<i th:text="${followNotice.count}">3</i>条会话</span>
+                                <li class="d-inline ml-2"><span class="text-primary">Total
+										<i th:text="${followNotice.count}">3</i>session</span>
                                 </li>
                             </ul>
                         </div>
@@ -177,9 +177,6 @@
         </div>
     </div>
 
-    <!-- 尾部 -->
-    <footer class="bg-dark" th:replace="index::footer">
-    </footer>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>

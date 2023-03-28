@@ -82,7 +82,7 @@
                 <div class="media-body">
                     <div class="mt-0 text-warning" th:utext="${user.username}"></div>
                     <div class="text-muted mt-3">
-                        发布于 <b th:text="${#dates.format(post.createTime)}"></b>
+                        Publish at <b th:text="${#dates.format(post.createTime)}"></b>
                         <ul class="d-inline float-right">
                             <li class="d-inline ml-2">
                                 <a href="javascript:;" th:onclick="|like(this, 1, ${post.id}, ${post.userId}, ${post.id});|" class="text-primary">
@@ -181,7 +181,7 @@
                             <li class="pb-3 pt-3">
                                 <form method="post" th:action="@{|/comment/add/${post.id}|}">
                                     <div>
-                                        <input type="text" class="input-size" name="content" placeholder="请输入你的观点"/>
+                                        <input type="text" class="input-size" name="content" placeholder="You can express your opinion"/>
                                         <input type="hidden" name="entityType" value="2">
                                         <input type="hidden" name="entityId" th:value="${cvo.comment.id}">
                                     </div>
