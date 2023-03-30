@@ -1,4 +1,4 @@
-# Imitated a forum community website.(Full Stack)
+# A forum community website.(Full Stack)
 ## Project Overview
 The mock forum project has implemented several basic functionalities including registration, login, posting, commenting, replying, private messaging, and others. It utilizes prefix trees to achieve sensitive word filtering, Redis for implementing likes and follows, and Kafka to handle sending comments, likes, follows, and other system notifications. Elasticsearch has been used to enable full-text search and keyword highlighting. Additionally, the project uses wkhtmltopdf to generate growth charts and PDFs, and it tracks website UV and DAU statistics. 
 ## Technology Stack
