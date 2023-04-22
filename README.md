@@ -8,7 +8,7 @@ The mock forum project has implemented several basic functionalities including r
 | MyBatis | 2.2.0 |
 | Redis | 5.0.3 |
 | Kafka | 2.7.0 |
-| Elasticsearch | 7.4.2 |
+| Elasticsearch | 6.4.3 |
 | Spring Security | 5.4.5 |
 | Spring Quartz | 2.3.2 |
 | kaptcha | 2.3.1 |
@@ -17,7 +17,7 @@ The mock forum project has implemented several basic functionalities including r
 | MySQL | 8.0.25 |
 | JDK | 1.8 |
 ## Function Introduction
-- We utilize Redis set and zset to implement the functionality of likes and follows respectively. Redis is also used to store login tickets and authentication codes to address the distributed session problem. Redis's advanced data type, HyperLogLog, is used to count UV (Unique Visitor), and Bitmap is used to count DAU (Daily Active User) using Bitmap.
+- Utilizing Redis set and zset to implement the functionality of likes and follows respectively. Redis is also used to store login tickets and authentication codes to address the distributed session problem. Redis's advanced data type, HyperLogLog, is used to count UV (Unique Visitor), and Bitmap is used to count DAU (Daily Active User) using Bitmap.
 
 - Kafka is employed to handle sending system notifications like comments, likes, and followers. It also transfers new posts to Elasticsearch server asynchronously while encapsulating them with events to create a powerful asynchronous messaging system.
 
